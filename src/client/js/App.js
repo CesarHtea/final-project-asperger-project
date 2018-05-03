@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { 
-  BrowserRouter 
+  BrowserRouter, 
   HashRouter as Router,
   Switch,
   Route,
   Link
 } from 'react-router-dom';
-
 
 class Public extends Component {
   render() {
@@ -18,6 +17,17 @@ class Public extends Component {
 class Protected extends Component {
   render() {
     return <h3>Protected</h3>
+  }
+}
+
+class Login extends Component {
+  render() {
+    return (
+      <div>
+        <p>You must log in to view this page.</p>
+        <button>Log in</button>
+      </div>
+    )
   }
 }
 
@@ -33,7 +43,7 @@ class App extends Component {
 
           <Switch>
             <Route exact path='/public' component={Public} />
-            <Route exact path='/Protected' component={Protected} />
+            <Route exact path='/login' component={Login} />
           </Switch>
         </div>
       </Router>
