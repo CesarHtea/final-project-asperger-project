@@ -1,0 +1,25 @@
+const data = [{
+  talento1: 'Perfeccionismo',
+  talento2: 'Obsesion',
+  userId: 1
+}, {
+  talento1: 'Pensamiento en imagenes',
+  talento2: 'Obsesion',
+  userId: 2
+}, {
+  talento1: 'Hipersinapsis',
+  talento2: 'Tolerancia cero al error',
+  userId: 1
+}, {
+  talento1: 'Observacion',
+  talento2: 'Memoria',
+  userId: 2
+}]
+
+exports.seed = function(knex, Promise) {
+  return knex('talentos').del()
+    .then(function() {
+      return knex('talentos')
+        .insert(data)
+    });
+}
