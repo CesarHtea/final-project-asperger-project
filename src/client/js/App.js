@@ -35,21 +35,31 @@ class Protected extends Component {
   }
 }
 
+class ProtectedVault extends Component {
+  render() {
+    return <h3>Protected Vault</h3>
+  }
+}
+
 class Login extends Component {
 
-  state = {
-    redirectToReferrer: false
+  constructor(props) {
+    super();
+    this.state = {
+      redirectToReferrer: false
+    }
   }
 
-  handleLogin = () => {
+  handleLogin() {
     AuthService.authenticate(() => {
-      this.setState(() => ({
+      this.setState({
         redirectToReferrer: true
-      }))
+      })
     })
   }
 
   render() {
+    console.log(this.state.redirectToReferrer)
 
     const { redirectToReferrer } = this.state
     const { from } = this.props.location.state || { from: { pathname: '/' } }
@@ -67,10 +77,22 @@ class Login extends Component {
   }
 }
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={(props) => (
+
+// const PrivateRoute = ({ component: Component, ...rest }) => (
+//   <Route {...rest} render={(props) => (
+//     AuthService.isAuthenticated === true
+//       ? <Component {...props} />
+//       : <Redirect to={{
+//         pathname: '/login',
+//         state: { from: props.location }
+//       }} />
+//   )} />
+// )
+
+const PrivateRoute = ({ component: Component }) => (
+  <Route render={(props) => (
     AuthService.isAuthenticated === true
-      ? <Component {...props} />
+      ? <Component />
       : <Redirect to={{
         pathname: '/login',
         state: { from: props.location }
@@ -86,12 +108,14 @@ class App extends Component {
           <ul>
             <li><Link to='/public'>Public</Link></li>
             <li><Link to='/protected'>Protected</Link></li>
+            <li><Link to='/protectedVault'>ProtectedVault</Link></li>
           </ul>
 
           <Switch>
             <Route exact path='/public' component={Public} />
             <Route exact path='/login' component={Login} />
             <PrivateRoute path='/protected' component={Protected} />
+            <PrivateRoute path='/protectedVault' component={ProtectedVault} />
           </Switch>
         </div>
       </Router>
