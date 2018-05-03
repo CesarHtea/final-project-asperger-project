@@ -6,7 +6,7 @@ pageRouter.get('/', (req, res) => {
 })
 
 pageRouter.get('/about', (req, res) => {
-  res.send('About')
+  res.render('about.ejs')
 })
 
 module.exports = pageRouter
