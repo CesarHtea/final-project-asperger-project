@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { 
+  BrowserRouter 
+  HashRouter as Router,
+  Switch,
+  Route,
+  Link
+} from 'react-router-dom';
+
 
 class Public extends Component {
   render() {
@@ -17,12 +24,19 @@ class Protected extends Component {
 class App extends Component {
   render() {
     return (
-      <div>
-        <ul>
-          <li>Public</li>
-          <li>Protected</li>
-        </ul>
-      </div>
+      <Router>
+        <div>
+          <ul>
+            <li><Link to='/public'>Public</Link></li>
+            <li><Link to='/protected'>Protected</Link></li>
+          </ul>
+
+          <Switch>
+            <Route exact path='/public' component={Public} />
+            <Route exact path='/Protected' component={Protected} />
+          </Switch>
+        </div>
+      </Router>
     );
   }
 }
