@@ -1,11 +1,14 @@
 const Router = require('express').Router
 const apiRouter = Router()
 
-const getTalentos = require('../modules/getTalentos')
-const getUnGrupoDeTalentosPorId = require('../modules/getUnGrupoDeTalentosPorId') 
-const createNewGrupoDeTalentos = require('../modules/createNewGrupoDeTalentos')
-const updateUnGrupoDeTalentos = require('../modules/updateUnGrupoDeTalentos')
-const deleteUnGrupoDeTalentos = require('../modules/deleteUnGrupoDeTalentos')
+const {
+  getTalentos,
+  getUnGrupoDeTalentosPorId,
+  createNewGrupoDeTalentos,
+  updateUnGrupoDeTalentos,
+  deleteUnGrupoDeTalentos
+} = require('../modules/talentosTableCRUDfns.js')
+
 const isUserAuthenticated = require('../modules/isUserAuthenticated')
 
 apiRouter
