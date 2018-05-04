@@ -33,11 +33,7 @@ class Detail extends Component {
       })
   }
 
-  updateQuote(e) {
-
-        console.log('#############')
-        console.log(this)
-        console.log('#############')
+  updateQuote = e => {
 
     e.preventDefault()
 
@@ -56,7 +52,7 @@ class Detail extends Component {
 
         alert('Elemento actualizado.')
 
-        this.props.history.push('/')
+        this.props.history.push('/allElementsFromAPI')
 
       })
       .catch(function(e) {
@@ -65,18 +61,15 @@ class Detail extends Component {
   }
 
   render() {
-    console.log('------- props match params elementId')
-    console.log(this.props.match.params.talentosId)
     return (
       <div>
         <h1>Elemento: { this.state.id }</h1>
         <h5>Talento 1: { this.state.talento1 }</h5>
         <h5>Talento 2: { this.state.talento2 }</h5>
         <h5>User Id: { this.state.userId }</h5>
-
         <form onSubmit={ this.updateQuote }>
-          <h2>Edit Elemento: </h2>
-
+          <h2>Modificar Elemento: </h2>
+          <p>Solo si se modifican todos los campos, y existe el userID se acepta la modificacion</p>
           <div>
             <label>Talento 1: </label>
             <input type='text' name='updateTalent1' />

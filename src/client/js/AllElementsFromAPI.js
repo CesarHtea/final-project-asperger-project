@@ -20,9 +20,6 @@ class AllElementsFromAPI extends Component {
     request
       .get(`${API_URL}/api/talentos`)
       .then((data) => {
-        // console.log('++++++++++++')
-        // console.log(this)
-        // console.log('++++++++++++')
         this.setState({
           talentos: data.body
         })
@@ -32,7 +29,7 @@ class AllElementsFromAPI extends Component {
       })
   };
 
-  deleteElement(elementId) {
+  deleteElement = elementId => {
     
     console.log(elementId)
 
@@ -45,10 +42,6 @@ class AllElementsFromAPI extends Component {
     request
       .get(`${API_URL}/api/talentos`)
       .then((data) => {
-        console.log('###########')
-        console.log(this)
-        console.log(data.body)
-        console.log('###########')
           this.setState({
             talentos: data.body 
           })
@@ -60,12 +53,9 @@ class AllElementsFromAPI extends Component {
   }
 
   render() {
-    console.log('----- state ------ ')
-    console.log(this.state.talentos)
     return (
       <div>
-        <h1>GET ALL ELEMENTS</h1>
-        <h2>VER CONSOLA DEL NAVEGADOR</h2>
+        <h1>ALL ELEMENTS</h1>
         <table className='table'>
           <thead>
             <tr>
@@ -77,9 +67,7 @@ class AllElementsFromAPI extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.talentos.map((element) => {
-              // console.log('------ elemento desde fn map en all elements -----')
-              // console.log(element)
+            {this.state.talentos.slice(0).reverse().map((element) => {
               return  <ElementoIndividual info={element} fn={this.deleteElement}/>
             })}
           </tbody>

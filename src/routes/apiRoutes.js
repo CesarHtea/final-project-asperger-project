@@ -14,8 +14,10 @@ const isUserAuthenticated = require('../modules/isUserAuthenticated')
 apiRouter
   .get('/talentos', getTalentos)
   .get('/talentos/:id', getUnGrupoDeTalentosPorId)
-  .post('/talentos', isUserAuthenticated, createNewGrupoDeTalentos)
-  .put('/talentos/:id', isUserAuthenticated, updateUnGrupoDeTalentos)
+  // .post('/talentos', isUserAuthenticated, createNewGrupoDeTalentos)
+  .post('/talentos', createNewGrupoDeTalentos)
+  // .put('/talentos/:id', isUserAuthenticated, updateUnGrupoDeTalentos)
+  .put('/talentos/:id', updateUnGrupoDeTalentos)
   // .delete('/talentos/:id', isUserAuthenticated, deleteUnGrupoDeTalentos)
   .delete('/talentos/:id', deleteUnGrupoDeTalentos)
 

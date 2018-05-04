@@ -3416,6 +3416,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router_dom__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AllElementsFromAPI__ = __webpack_require__(77);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ElementDetail__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__NewElement__ = __webpack_require__(85);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -3431,7 +3432,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-//--------- AuthService to fake our API requests
+
+//--------- AuthService to fake API requests
 var AuthService = {
   isAuthenticated: false,
   authenticate: function authenticate(cb) {
@@ -3638,14 +3640,23 @@ var App = function (_Component5) {
               { to: '/allElementsFromAPI' },
               'AllElementsFromAPI'
             )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'li',
+            null,
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              __WEBPACK_IMPORTED_MODULE_2_react_router_dom__["c" /* Link */],
+              { to: '/newElement' },
+              'NewElement'
+            )
           )
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           __WEBPACK_IMPORTED_MODULE_2_react_router_dom__["f" /* Switch */],
           null,
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["e" /* Route */], { exact: true, path: '/public', component: Public }),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["e" /* Route */], { exact: true, path: '/login', component: Login }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["e" /* Route */], { exact: true, path: '/allElementsFromAPI', component: __WEBPACK_IMPORTED_MODULE_3__AllElementsFromAPI__["a" /* default */] }),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["e" /* Route */], { exact: true, path: '/newElement', component: __WEBPACK_IMPORTED_MODULE_5__NewElement__["a" /* default */] }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["e" /* Route */], { path: '/talentos/:talentosId', component: __WEBPACK_IMPORTED_MODULE_4__ElementDetail__["a" /* default */] }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(PrivateRoute, { path: '/protected', component: Protected }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(PrivateRoute, { path: '/protectedVault', component: ProtectedVault })
@@ -14281,6 +14292,23 @@ var AllElementsFromAPI = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, _Component.call(this));
 
+    _this.deleteElement = function (elementId) {
+
+      console.log(elementId);
+
+      __WEBPACK_IMPORTED_MODULE_1_superagent___default.a.delete(API_URL + '/api/talentos/' + elementId).then(function () {
+        console.log('registro eliminado');
+      });
+
+      __WEBPACK_IMPORTED_MODULE_1_superagent___default.a.get(API_URL + '/api/talentos').then(function (data) {
+        _this.setState({
+          talentos: data.body
+        });
+      }).catch(function (e) {
+        console.log(e);
+      });
+    };
+
     _this.state = {
       talentos: []
     };
@@ -14291,9 +14319,6 @@ var AllElementsFromAPI = function (_Component) {
     var _this2 = this;
 
     __WEBPACK_IMPORTED_MODULE_1_superagent___default.a.get(API_URL + '/api/talentos').then(function (data) {
-      // console.log('++++++++++++')
-      // console.log(this)
-      // console.log('++++++++++++')
       _this2.setState({
         talentos: data.body
       });
@@ -14302,45 +14327,16 @@ var AllElementsFromAPI = function (_Component) {
     });
   };
 
-  AllElementsFromAPI.prototype.deleteElement = function deleteElement(elementId) {
+  AllElementsFromAPI.prototype.render = function render() {
     var _this3 = this;
 
-    console.log(elementId);
-
-    __WEBPACK_IMPORTED_MODULE_1_superagent___default.a.delete(API_URL + '/api/talentos/' + elementId).then(function () {
-      console.log('registro eliminado');
-    });
-
-    __WEBPACK_IMPORTED_MODULE_1_superagent___default.a.get(API_URL + '/api/talentos').then(function (data) {
-      console.log('###########');
-      console.log(_this3);
-      console.log(data.body);
-      console.log('###########');
-      _this3.setState({
-        talentos: data.body
-      });
-    }).catch(function (e) {
-      console.log(e);
-    });
-  };
-
-  AllElementsFromAPI.prototype.render = function render() {
-    var _this4 = this;
-
-    console.log('----- state ------ ');
-    console.log(this.state.talentos);
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       null,
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'h1',
         null,
-        'GET ALL ELEMENTS'
-      ),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'h2',
-        null,
-        'VER CONSOLA DEL NAVEGADOR'
+        'ALL ELEMENTS'
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'table',
@@ -14377,10 +14373,8 @@ var AllElementsFromAPI = function (_Component) {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'tbody',
           null,
-          this.state.talentos.map(function (element) {
-            // console.log('------ elemento desde fn map en all elements -----')
-            // console.log(element)
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__ElementoIndividual__["a" /* default */], { info: element, fn: _this4.deleteElement });
+          this.state.talentos.slice(0).reverse().map(function (element) {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__ElementoIndividual__["a" /* default */], { info: element, fn: _this3.deleteElement });
           })
         )
       )
@@ -15535,8 +15529,9 @@ var ElementoIndividual = function (_Component) {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["c" /* Link */],
           { to: '/talentos/' + info.id },
+          'Modificar ',
           info.id,
-          '. Ver detalle.'
+          '. '
         )
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -15605,6 +15600,28 @@ var Detail = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, _Component.call(this));
 
+    _this.updateQuote = function (e) {
+
+      e.preventDefault();
+
+      var newTalent1 = e.target.updateTalent1.value;
+      var newTalent2 = e.target.updateTalent2.value;
+      var newUserId = e.target.updateUserId.value;
+
+      __WEBPACK_IMPORTED_MODULE_1_superagent___default.a.put(API_URL + '/api/talentos/' + _this.props.match.params.talentosId).send({
+        talento1: newTalent1,
+        talento2: newTalent2,
+        userId: newUserId
+      }).then(function (data) {
+
+        alert('Elemento actualizado.');
+
+        _this.props.history.push('/allElementsFromAPI');
+      }).catch(function (e) {
+        console.log(e);
+      });
+    };
+
     _this.state = {
       id: '',
       talento1: '',
@@ -15629,36 +15646,7 @@ var Detail = function (_Component) {
     });
   };
 
-  Detail.prototype.updateQuote = function updateQuote(e) {
-    var _this3 = this;
-
-    console.log('#############');
-    console.log(this);
-    console.log('#############');
-
-    e.preventDefault();
-
-    var newTalent1 = e.target.updateTalent1.value;
-    var newTalent2 = e.target.updateTalent2.value;
-    var newUserId = e.target.updateUserId.value;
-
-    __WEBPACK_IMPORTED_MODULE_1_superagent___default.a.put(API_URL + '/api/talentos/' + this.props.match.params.talentosId).send({
-      talento1: newTalent1,
-      talento2: newTalent2,
-      userId: newUserId
-    }).then(function (data) {
-
-      alert('Elemento actualizado.');
-
-      _this3.props.history.push('/');
-    }).catch(function (e) {
-      console.log(e);
-    });
-  };
-
   Detail.prototype.render = function render() {
-    console.log('------- props match params elementId');
-    console.log(this.props.match.params.talentosId);
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       null,
@@ -15692,7 +15680,12 @@ var Detail = function (_Component) {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'h2',
           null,
-          'Edit Elemento: '
+          'Modificar Elemento: '
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'p',
+          null,
+          'Solo si se modifican todos los campos, y existe el userID se acepta la modificacion'
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
@@ -15745,6 +15738,123 @@ var Detail = function (_Component) {
 // ...
 
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["g" /* withRouter */])(Detail));
+
+/***/ }),
+/* 85 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_superagent__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_superagent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_superagent__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+var API_URL = 'http://localhost:3000';
+
+var NewElement = function (_Component) {
+  _inherits(NewElement, _Component);
+
+  function NewElement() {
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, NewElement);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.createNewElement = function (e) {
+      e.preventDefault();
+
+      var elementData = {
+        talento1: e.target.talento1.value,
+        talento2: e.target.talento2.value,
+        userId: e.target.userId.value
+      };
+
+      __WEBPACK_IMPORTED_MODULE_1_superagent___default.a.post(API_URL + '/api/talentos').send(elementData).then(function () {
+
+        alert('Elemento creado.');
+
+        _this.props.history.push('/allElementsFromAPI');
+      }).catch(function (e) {
+        console.log(e);
+      });
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  NewElement.prototype.render = function render() {
+    var _this2 = this;
+
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      null,
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'h3',
+        null,
+        'Crear nuevo Elementos de Talentos'
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'p',
+        null,
+        'Para crear un nuevo elemento, debe ingresar un UserId existente'
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'form',
+        { className: 'form', onSubmit: function onSubmit(e) {
+            _this2.createNewElement(e);
+          } },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          null,
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'label',
+            null,
+            'UserId'
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', name: 'userId' })
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          null,
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'label',
+            null,
+            'Talento 1'
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', name: 'talento1' })
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          null,
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'label',
+            null,
+            'Talento 2'
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', name: 'talento2' })
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'button',
+          null,
+          'Crear Elemento'
+        )
+      )
+    );
+  };
+
+  return NewElement;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+/* harmony default export */ __webpack_exports__["a"] = (NewElement);
 
 /***/ })
 /******/ ]);

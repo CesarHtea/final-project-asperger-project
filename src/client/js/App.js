@@ -13,9 +13,10 @@ import {
 
 import AllElementsFromAPI from './AllElementsFromAPI';
 import ElementDetail from './ElementDetail'
+import NewElement from './NewElement'
 
 
-//--------- AuthService to fake our API requests
+//--------- AuthService to fake API requests
 const AuthService = {
   isAuthenticated: false,
   authenticate(cb) {
@@ -118,12 +119,14 @@ class App extends Component {
             <li><Link to='/protected'>Protected</Link></li>
             <li><Link to='/protectedVault'>ProtectedVault</Link></li>
             <li><Link to='/allElementsFromAPI'>AllElementsFromAPI</Link></li>
+            <li><Link to='/newElement'>NewElement</Link></li>
           </ul>
 
           <Switch>
             <Route exact path='/public' component={Public} />
-            <Route exact path='/login' component={Login} />
+            {/* <Route exact path='/login' component={Login} /> */}
             <Route exact path='/allElementsFromAPI' component={AllElementsFromAPI} />
+            <Route exact path='/newElement' component={NewElement} />
             <Route path='/talentos/:talentosId' component={ElementDetail} />
             <PrivateRoute path='/protected' component={Protected} />
             <PrivateRoute path='/protectedVault' component={ProtectedVault} />

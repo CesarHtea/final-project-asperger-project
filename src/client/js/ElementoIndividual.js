@@ -9,7 +9,7 @@ class ElementoIndividual extends Component {
   	return (
   	  <tr>
   	      <td>
-	        <Link to={'/talentos/' + info.id} >{info.id}. Ver detalle.</Link> 
+	        <Link to={'/talentos/' + info.id} >Modificar {info.id}. </Link> 
 	      </td>
 	      <td>{ info.talento1 }</td>
 	      <td>{ info.talento2 }</td>
