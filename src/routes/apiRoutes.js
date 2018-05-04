@@ -16,6 +16,7 @@ apiRouter
   .get('/talentos/:id', getUnGrupoDeTalentosPorId)
   .post('/talentos', isUserAuthenticated, createNewGrupoDeTalentos)
   .put('/talentos/:id', isUserAuthenticated, updateUnGrupoDeTalentos)
-  .delete('/talentos/:id', isUserAuthenticated, deleteUnGrupoDeTalentos)
+  // .delete('/talentos/:id', isUserAuthenticated, deleteUnGrupoDeTalentos)
+  .delete('/talentos/:id', deleteUnGrupoDeTalentos)
 
 module.exports = apiRouter

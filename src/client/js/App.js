@@ -9,6 +9,12 @@ import {
   Redirect
 } from 'react-router-dom';
 
+// import './App.css';
+
+import AllElementsFromAPI from './AllElementsFromAPI';
+import ElementDetail from './ElementDetail'
+
+
 //--------- AuthService to fake our API requests
 const AuthService = {
   isAuthenticated: false,
@@ -31,13 +37,13 @@ class Public extends Component {
 
 class Protected extends Component {
   render() {
-    return <h3>Protected</h3>
+    return <h3>Acceso autorizado a Protected</h3>
   }
 }
 
 class ProtectedVault extends Component {
   render() {
-    return <h3>Protected Vault</h3>
+    return <h3>Acceso autorizado a Protected Vault</h3>
   }
 }
 
@@ -70,7 +76,7 @@ class Login extends Component {
 
     return (
       <div>
-        <p>You must log in to view this page. <strong>{ from.pathname }</strong>, my friend :)</p>
+        <p>You must log in to view this page. Pagina desde la que se intento accesar: <strong>{ from.pathname }</strong></p>
         <button onClick={this.handleLogin}>Log in</button>
       </div>
     )
@@ -100,6 +106,8 @@ const PrivateRoute = ({ component: Component }) => (
   )} />
 )
 
+
+
 class App extends Component {
   render() {
     return (
@@ -109,11 +117,14 @@ class App extends Component {
             <li><Link to='/public'>Public</Link></li>
             <li><Link to='/protected'>Protected</Link></li>
             <li><Link to='/protectedVault'>ProtectedVault</Link></li>
+            <li><Link to='/allElementsFromAPI'>AllElementsFromAPI</Link></li>
           </ul>
 
           <Switch>
             <Route exact path='/public' component={Public} />
             <Route exact path='/login' component={Login} />
+            <Route exact path='/allElementsFromAPI' component={AllElementsFromAPI} />
+            <Route path='/talentos/:talentosId' component={ElementDetail} />
             <PrivateRoute path='/protected' component={Protected} />
             <PrivateRoute path='/protectedVault' component={ProtectedVault} />
           </Switch>

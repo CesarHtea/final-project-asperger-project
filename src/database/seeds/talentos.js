@@ -14,6 +14,14 @@ const data = [{
   talento1: 'Observacion',
   talento2: 'Memoria',
   userId: 2
+}, {
+  talento1: 'Rigidez mental',
+  talento2: 'Necedad',
+  userId: 2
+}, {
+  talento1: 'Hipersensibilidad',
+  talento2: 'Pensamiento Visual',
+  userId: 1
 }]
 
 exports.seed = function(knex, Promise) {
