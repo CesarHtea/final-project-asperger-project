@@ -4,7 +4,7 @@ import request from 'superagent';
 
 import ElementoIndividual from './ElementoIndividual'
 
-const API_URL = 'http://localhost:3000'
+const API_URL = `http://192.168:3000`
 
 class AllElementsFromAPI extends Component {
   

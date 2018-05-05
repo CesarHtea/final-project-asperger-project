@@ -1,4 +1,14 @@
-const Talentos = require('../models/Talentos')
+const Talentos = require('../models/Talentos');
+const RegisteredUsers = require('../models/RegisteredUsers')
+
+exports.getRegisteredUsers = function getTalentos(req, res) {
+  RegisteredUsers
+    .query()
+    .select('email')
+    .then(function(data) {
+      res.json(data)
+    })
+  }
 
 exports.getTalentos = function getTalentos(req, res) {
   Talentos

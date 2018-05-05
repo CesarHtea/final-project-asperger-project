@@ -2,6 +2,7 @@ const Router = require('express').Router
 const apiRouter = Router()
 
 const {
+  getRegisteredUsers,
   getTalentos,
   getUnGrupoDeTalentosPorId,
   createNewGrupoDeTalentos,
@@ -20,5 +21,8 @@ apiRouter
   .put('/talentos/:id', updateUnGrupoDeTalentos)
   // .delete('/talentos/:id', isUserAuthenticated, deleteUnGrupoDeTalentos)
   .delete('/talentos/:id', deleteUnGrupoDeTalentos)
+
+apiRouter
+  .get('/registeredUsers', getRegisteredUsers)
 
 module.exports = apiRouter

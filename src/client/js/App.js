@@ -12,8 +12,11 @@ import {
 // import './App.css';
 
 import AllElementsFromAPI from './AllElementsFromAPI';
-import ElementDetail from './ElementDetail'
-import NewElement from './NewElement'
+import ElementDetail from './ElementDetail';
+import NewElement from './NewElement';
+import NewUserSignIn from './NewUserSignIn';
+import RegisteredUsers from './RegisteredUsers';
+import UserLogIn from './UserLogIn'
 
 
 //--------- AuthService to fake API requests
@@ -44,29 +47,29 @@ class Protected extends Component {
 
 class ProtectedVault extends Component {
   render() {
-    return <h3>Acceso autorizado a Protected Vault</h3>
+    return (
+      <div>
+        <h3>Acceso autorizado a Protected Vault</h3>
+      </div>
+      )
   }
 }
 
 class Login extends Component {
 
-  constructor(props) {
-    super();
-    this.state = {
+  state = {
       redirectToReferrer: false
     }
-  }
-
-  handleLogin() {
+  
+  handleLogin = () => {
     AuthService.authenticate(() => {
-      this.setState({
+      this.setState(() => ({
         redirectToReferrer: true
-      })
+      }))
     })
   }
 
   render() {
-    console.log(this.state.redirectToReferrer)
 
     const { redirectToReferrer } = this.state
     const { from } = this.props.location.state || { from: { pathname: '/' } }
@@ -85,29 +88,16 @@ class Login extends Component {
 }
 
 
-// const PrivateRoute = ({ component: Component, ...rest }) => (
-//   <Route {...rest} render={(props) => (
-//     AuthService.isAuthenticated === true
-//       ? <Component {...props} />
-//       : <Redirect to={{
-//         pathname: '/login',
-//         state: { from: props.location }
-//       }} />
-//   )} />
-// )
-
-const PrivateRoute = ({ component: Component }) => (
-  <Route render={(props) => (
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={(props) => (
     AuthService.isAuthenticated === true
-      ? <Component />
+      ? <Component {...props} />
       : <Redirect to={{
         pathname: '/login',
         state: { from: props.location }
       }} />
   )} />
 )
-
-
 
 class App extends Component {
   render() {
@@ -120,14 +110,20 @@ class App extends Component {
             <li><Link to='/protectedVault'>ProtectedVault</Link></li>
             <li><Link to='/allElementsFromAPI'>AllElementsFromAPI</Link></li>
             <li><Link to='/newElement'>NewElement</Link></li>
+            <li><Link to='/registeredUsers'>RegisteredUsers</Link></li>
+            <li><Link to='/newUserSignIn'>NewUserSignIn</Link></li>
+            <li><Link to='/userLogIn'>UserLogIn</Link></li>
           </ul>
 
           <Switch>
             <Route exact path='/public' component={Public} />
-            {/* <Route exact path='/login' component={Login} /> */}
+            <Route exact path='/login' component={Login} />
             <Route exact path='/allElementsFromAPI' component={AllElementsFromAPI} />
             <Route exact path='/newElement' component={NewElement} />
             <Route path='/talentos/:talentosId' component={ElementDetail} />
+            <Route exact path='/newUserSignIn' component={NewUserSignIn} />
+            <Route exact path='/registeredUsers' component={RegisteredUsers} />
+            <Route exact path='/userLogIn' component={UserLogIn} />
             <PrivateRoute path='/protected' component={Protected} />
             <PrivateRoute path='/protectedVault' component={ProtectedVault} />
           </Switch>
