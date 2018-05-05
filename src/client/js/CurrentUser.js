@@ -5,7 +5,7 @@ import UserIndividual from './UserIndividual'
 
 const API_URL = 'http://localhost:3000'
 
-class AllRegisteredUsers extends Component {
+class CurrentUser extends Component {
   
   constructor() {
     super();
@@ -17,10 +17,10 @@ class AllRegisteredUsers extends Component {
 
   componentDidMount() {
     request
-      .get(`${API_URL}/api/registeredUsers`)
+      .get(`${API_URL}/auth/current`)
       .then((data) => {
         this.setState({
-          users: data.body
+          users: [...data.body]
         })
       })
       .catch(function(e){
@@ -29,26 +29,27 @@ class AllRegisteredUsers extends Component {
   };
 
   render() {
-
+    console.log(this.state.users)
     return (
       <div>
-        <h1>REGISTERED USERS</h1>
+        <h1>CURRENT USERS</h1>
         <table className='table'>
-          <thead>
-            <tr>
-              <td></td>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.users.map((user, index) => {
-              return  <UserIndividual key={index} info={user} />
-            })}
-          </tbody>
-        </table>
+           <thead>
+             <tr>
+               <td></td>
+             </tr>
+           </thead>
+           <tbody>
+             {this.state.users.map((user) => {
+               return <UserIndividual key={user.id} info={user} />
+             })}
+           </tbody>
+         </table>
       </div>
     )
   }
 
 }
 
-export default AllRegisteredUsers;
+export default CurrentUser;
+

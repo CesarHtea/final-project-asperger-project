@@ -6,7 +6,7 @@ class UserIndividual extends Component {
 
   	return (
   	  <tr>
-	      <td>{ info.email }</td>
+	    <td>{ info.email }</td>
       </tr>
   	)
   }

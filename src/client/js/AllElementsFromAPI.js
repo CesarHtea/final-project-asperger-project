@@ -4,7 +4,7 @@ import request from 'superagent';
 
 import ElementoIndividual from './ElementoIndividual'
 
-const API_URL = `http://192.168:3000`
+const API_URL = `http://localhost:3000`
 
 class AllElementsFromAPI extends Component {
   
@@ -53,6 +53,7 @@ class AllElementsFromAPI extends Component {
   }
 
   render() {
+    console.log(this.state.talentos)
     return (
       <div>
         <h1>ALL ELEMENTS</h1>
@@ -68,7 +69,7 @@ class AllElementsFromAPI extends Component {
           </thead>
           <tbody>
             {this.state.talentos.slice(0).reverse().map((element) => {
-              return  <ElementoIndividual info={element} fn={this.deleteElement}/>
+              return  <ElementoIndividual key={element.id} info={element} fn={this.deleteElement}/>
             })}
           </tbody>
         </table>
