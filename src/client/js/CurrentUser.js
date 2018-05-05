@@ -29,7 +29,6 @@ class CurrentUser extends Component {
   };
 
   render() {
-    console.log(this.state.users)
     return (
       <div>
         <h1>CURRENT USERS</h1>
@@ -40,8 +39,8 @@ class CurrentUser extends Component {
              </tr>
            </thead>
            <tbody>
-             {this.state.users.map((user) => {
-               return <UserIndividual key={user.id} info={user} />
+             {this.state.users.map((user, index) => {
+               return <UserIndividual key={index} info={user} />
              })}
            </tbody>
          </table>

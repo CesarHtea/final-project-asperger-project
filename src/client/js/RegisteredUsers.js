@@ -20,7 +20,7 @@ class AllRegisteredUsers extends Component {
       .get(`${API_URL}/api/registeredUsers`)
       .then((data) => {
         this.setState({
-          users: data.body
+          users: [...data.body]
         })
       })
       .catch(function(e){
@@ -29,7 +29,6 @@ class AllRegisteredUsers extends Component {
   };
 
   render() {
-
     return (
       <div>
         <h1>REGISTERED USERS</h1>
@@ -40,7 +39,7 @@ class AllRegisteredUsers extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.users.map((user, index) => {
+            {this.state.users.slice(0).reverse().map((user, index) => {
               return  <UserIndividual key={index} info={user} />
             })}
           </tbody>

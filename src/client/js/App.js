@@ -18,7 +18,7 @@ import NewUserSignIn from './NewUserSignIn';
 import RegisteredUsers from './RegisteredUsers';
 import UserLogIn from './UserLogIn';
 import CurrentUser from './CurrentUser';
-
+import UserLogout from './UserLogout'
 
 //--------- AuthService to fake API requests
 const AuthService = {
@@ -115,6 +115,7 @@ class App extends Component {
             <li><Link to='/newUserSignIn'>NewUserSignIn</Link></li>
             <li><Link to='/userLogIn'>UserLogIn</Link></li>
             <li><Link to='/currentUser'>CurrentUser</Link></li>
+            <li><Link to='/userLogout'>UserLogOut</Link></li>
           </ul>
 
           <Switch>
@@ -127,6 +128,7 @@ class App extends Component {
             <Route exact path='/registeredUsers' component={RegisteredUsers} />
             <Route exact path='/userLogIn' component={UserLogIn} />
             <Route exact path='/currentUser' component={CurrentUser} />
+            <Route exact path='/userLogout' component={UserLogout} />
             <PrivateRoute path='/protected' component={Protected} />
             <PrivateRoute path='/protectedVault' component={ProtectedVault} />
           </Switch>

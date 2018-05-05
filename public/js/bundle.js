@@ -3465,6 +3465,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__RegisteredUsers__ = __webpack_require__(88);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__UserLogIn__ = __webpack_require__(89);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__CurrentUser__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__UserLogout__ = __webpack_require__(91);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
@@ -3480,6 +3481,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 // import './App.css';
+
 
 
 
@@ -3735,6 +3737,15 @@ var App = function (_Component5) {
               { to: '/currentUser' },
               'CurrentUser'
             )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'li',
+            null,
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              __WEBPACK_IMPORTED_MODULE_2_react_router_dom__["c" /* Link */],
+              { to: '/userLogout' },
+              'UserLogOut'
+            )
           )
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -3749,6 +3760,7 @@ var App = function (_Component5) {
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["e" /* Route */], { exact: true, path: '/registeredUsers', component: __WEBPACK_IMPORTED_MODULE_7__RegisteredUsers__["a" /* default */] }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["e" /* Route */], { exact: true, path: '/userLogIn', component: __WEBPACK_IMPORTED_MODULE_8__UserLogIn__["a" /* default */] }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["e" /* Route */], { exact: true, path: '/currentUser', component: __WEBPACK_IMPORTED_MODULE_9__CurrentUser__["a" /* default */] }),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["e" /* Route */], { exact: true, path: '/userLogout', component: __WEBPACK_IMPORTED_MODULE_10__UserLogout__["a" /* default */] }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(PrivateRoute, { path: '/protected', component: Protected }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(PrivateRoute, { path: '/protectedVault', component: ProtectedVault })
         )
@@ -16091,7 +16103,7 @@ var AllRegisteredUsers = function (_Component) {
 
     __WEBPACK_IMPORTED_MODULE_1_superagent___default.a.get(API_URL + '/api/registeredUsers').then(function (data) {
       _this2.setState({
-        users: data.body
+        users: [].concat(data.body)
       });
     }).catch(function (e) {
       console.log(e);
@@ -16099,7 +16111,6 @@ var AllRegisteredUsers = function (_Component) {
   };
 
   AllRegisteredUsers.prototype.render = function render() {
-
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       null,
@@ -16123,7 +16134,7 @@ var AllRegisteredUsers = function (_Component) {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'tbody',
           null,
-          this.state.users.map(function (user, index) {
+          this.state.users.slice(0).reverse().map(function (user, index) {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__UserIndividual__["a" /* default */], { key: index, info: user });
           })
         )
@@ -16177,7 +16188,7 @@ var UserLogin = function (_Component) {
       };
 
       __WEBPACK_IMPORTED_MODULE_1_superagent___default.a.post(API_URL + '/auth/login').send(userData).then(function (response) {
-        console.log(response);
+        // console.log(response)
         alert('Welcome ' + response.body.email);
         _this.props.history.push('/');
       }).catch(function (e) {
@@ -16287,7 +16298,6 @@ var CurrentUser = function (_Component) {
   };
 
   CurrentUser.prototype.render = function render() {
-    console.log(this.state.users);
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       null,
@@ -16311,8 +16321,8 @@ var CurrentUser = function (_Component) {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'tbody',
           null,
-          this.state.users.map(function (user) {
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__UserIndividual__["a" /* default */], { key: user.id, info: user });
+          this.state.users.map(function (user, index) {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__UserIndividual__["a" /* default */], { key: index, info: user });
           })
         )
       )
@@ -16323,6 +16333,94 @@ var CurrentUser = function (_Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 /* harmony default export */ __webpack_exports__["a"] = (CurrentUser);
+
+/***/ }),
+/* 91 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_superagent__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_superagent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_superagent__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+var API_URL = 'http://localhost:3000';
+
+var UserLogout = function (_Component) {
+  _inherits(UserLogout, _Component);
+
+  function UserLogout() {
+    _classCallCheck(this, UserLogout);
+
+    var _this = _possibleConstructorReturn(this, _Component.call(this));
+
+    _this.logout = function (e) {
+
+      __WEBPACK_IMPORTED_MODULE_1_superagent___default.a.get(API_URL + '/auth/logout').then(function (response) {
+        console.log(response.body);
+        _this.props.history.push('/');
+      }).catch(function (e) {
+        console.log(e);
+      });
+    };
+
+    _this.state = {
+      users: []
+    };
+    return _this;
+  }
+
+  UserLogout.prototype.componentDidMount = function componentDidMount() {
+    var _this2 = this;
+
+    __WEBPACK_IMPORTED_MODULE_1_superagent___default.a.get(API_URL + '/auth/current').then(function (data) {
+      _this2.setState({
+        users: data.body
+      });
+    }).catch(function (e) {
+      console.log(e);
+    });
+  };
+
+  UserLogout.prototype.render = function render() {
+    var _this3 = this;
+
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      null,
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'h3',
+        null,
+        'Logout'
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'p',
+        null,
+        'Actual user: ',
+        this.state.users.email
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'button',
+        { onClick: function onClick(e) {
+            _this3.logout(e);
+          } },
+        'Logout'
+      )
+    );
+  };
+
+  return UserLogout;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+/* harmony default export */ __webpack_exports__["a"] = (UserLogout);
 
 /***/ })
 /******/ ]);

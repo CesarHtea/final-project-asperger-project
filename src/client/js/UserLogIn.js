@@ -17,7 +17,7 @@ class UserLogin extends Component {
       .post(`${API_URL}/auth/login`)
       .send(userData)
       .then(response => {
-        console.log(response)
+        // console.log(response)
         alert(`Welcome ${response.body.email}`)
         this.props.history.push('/') 
       })
