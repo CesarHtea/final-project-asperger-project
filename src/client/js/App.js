@@ -8,7 +8,7 @@ import {
   Link,
   Redirect
 } from 'react-router-dom';
-
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import './App.css';
 
 import AllElementsFromAPI from './AllElementsFromAPI';
@@ -103,37 +103,41 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 class App extends Component {
   render() {
     return (
-      <Router>
-        <div>
-          <ul>
-            <li><Link to='/public'>Public</Link></li>
-            <li><Link to='/protected'>Protected</Link></li>
-            <li><Link to='/protectedVault'>ProtectedVault</Link></li>
-            <li><Link to='/allElementsFromAPI'>AllElementsFromAPI</Link></li>
-            <li><Link to='/newElement'>NewElement</Link></li>
-            <li><Link to='/registeredUsers'>RegisteredUsers</Link></li>
-            <li><Link to='/newUserSignIn'>NewUserSignIn</Link></li>
-            <li><Link to='/userLogIn'>UserLogIn</Link></li>
-            <li><Link to='/currentUser'>CurrentUser</Link></li>
-            <li><Link to='/userLogout'>UserLogOut</Link></li>
-          </ul>
+      <MuiThemeProvider>
+        <Router>
+          <div>
+          
+            <ul>
+              <li><Link to='/public'>Public</Link></li>
+              <li><Link to='/protected'>Protected</Link></li>
+              <li><Link to='/protectedVault'>ProtectedVault</Link></li>
+              <li><Link to='/allElementsFromAPI'>AllElementsFromAPI</Link></li>
+              <li><Link to='/newElement'>NewElement</Link></li>
+              <li><Link to='/registeredUsers'>RegisteredUsers</Link></li>
+              <li><Link to='/newUserSignIn'>NewUserSignIn</Link></li>
+              <li><Link to='/userLogIn'>UserLogIn</Link></li>
+              <li><Link to='/currentUser'>CurrentUser</Link></li>
+              <li><Link to='/userLogout'>UserLogOut</Link></li>
+            </ul>
 
-          <Switch>
-            <Route exact path='/public' component={Public} />
-            <Route exact path='/login' component={Login} />
-            <Route exact path='/allElementsFromAPI' component={AllElementsFromAPI} />
-            <Route exact path='/newElement' component={NewElement} />
-            <Route path='/talentos/:talentosId' component={ElementDetail} />
-            <Route exact path='/newUserSignIn' component={NewUserSignIn} />
-            <Route exact path='/registeredUsers' component={RegisteredUsers} />
-            <Route exact path='/userLogIn' component={UserLogIn} />
-            <Route exact path='/currentUser' component={CurrentUser} />
-            <Route exact path='/userLogout' component={UserLogout} />
-            <PrivateRoute path='/protected' component={Protected} />
-            <PrivateRoute path='/protectedVault' component={ProtectedVault} />
-          </Switch>
-        </div>
-      </Router>
+            <Switch>
+              <Route exact path='/public' component={Public} />
+              <Route exact path='/login' component={Login} />
+              <Route exact path='/allElementsFromAPI' component={AllElementsFromAPI} />
+              <Route exact path='/newElement' component={NewElement} />
+              <Route path='/talentos/:talentosId' component={ElementDetail} />
+              <Route exact path='/newUserSignIn' component={NewUserSignIn} />
+              <Route exact path='/registeredUsers' component={RegisteredUsers} />
+              <Route exact path='/userLogIn' component={UserLogIn} />
+              <Route exact path='/currentUser' component={CurrentUser} />
+              <Route exact path='/userLogout' component={UserLogout} />
+              <PrivateRoute path='/protected' component={Protected} />
+              <PrivateRoute path='/protectedVault' component={ProtectedVault} />
+            </Switch>
+
+          </div>
+        </Router>
+      </MuiThemeProvider>
     );
   }
 }
@@ -177,5 +181,5 @@ class App extends Component {
 
 ReactDOM.render(
   <BrowserRouter>
-    <App/>
+      <App/>
   </BrowserRouter>, document.getElementById('app-container'));
