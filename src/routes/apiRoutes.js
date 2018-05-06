@@ -15,14 +15,11 @@ const isUserAuthenticated = require('../modules/isUserAuthenticated')
 apiRouter
   .get('/talentos', getTalentos)
   .get('/talentos/:id', getUnGrupoDeTalentosPorId)
-  // .post('/talentos', isUserAuthenticated, createNewGrupoDeTalentos)
-  .post('/talentos', createNewGrupoDeTalentos)
-  // .put('/talentos/:id', isUserAuthenticated, updateUnGrupoDeTalentos)
-  .put('/talentos/:id', updateUnGrupoDeTalentos)
-  // .delete('/talentos/:id', isUserAuthenticated, deleteUnGrupoDeTalentos)
-  .delete('/talentos/:id', deleteUnGrupoDeTalentos)
+  .post('/talentos', isUserAuthenticated, createNewGrupoDeTalentos)
+  .put('/talentos/:id', isUserAuthenticated, updateUnGrupoDeTalentos)
+  .delete('/talentos/:id', isUserAuthenticated, deleteUnGrupoDeTalentos)
 
-apiRouter
-  .get('/registeredUsers', getRegisteredUsers)
+// apiRouter
+//   .get('/registeredUsers', getRegisteredUsers)
 
 module.exports = apiRouter

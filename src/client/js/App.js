@@ -119,7 +119,9 @@ class App extends Component {
       .get(`${API_URL}/auth/current`)
       .then((data) => {
         this.setState({
-          user: data.body
+          user: data.body,
+          displaynone: 'display-none',
+          loggedOut: true
         })
       })
       .catch(function(e){
@@ -132,45 +134,59 @@ class App extends Component {
       .get(`${API_URL}/auth/current`)
       .then((data) => {
         this.setState({
-          user: data.body
+          user: data.body,
+          displaynone: '',
+          loggedOut: false
         })
+        // this.props.history.push('/')
       })
       .catch(function(e){
         console.log(e)
       })
   };    
 
-  actualizarStatePorUserLogout = () => {
+  actualizarStatePorUserLogout = (loggedOut) => {
     this.setState({
-      user: []
+      user: [],
+      displaynone: 'display-none',
+      loggedOut: loggedOut
     });
   }
 
+  
+
   render() {
+    // console.log(this.state)
     return (
       <MuiThemeProvider>
         {/*<Router>*/}
-        <div>
-          <Header 
-            currentUser={this.state.user.email} 
-            fnLogout={this.actualizarStatePorUserLogout}
-            fnLogin={this.actualizarStatePorUserLogin}
-          />
-          <Switch>
-            <Route exact path='/public' component={Public} />
-            <Route exact path='/login' component={Login} />
-            <Route exact path='/allElementsFromAPI' component={AllElementsFromAPI} />
-            <Route exact path='/newElement' component={NewElement} />
-            <Route path='/talentos/:talentosId' component={ElementDetail} />
-            <Route exact path='/newUserSignIn' component={NewUserSignIn} />
-            {/* <Route exact path='/registeredUsers' component={RegisteredUsers} /> */}
-            <Route exact path='/userLogIn' component={UserLogIn} />
-            {/* <Route exact path='/currentUser' component={CurrentUser} /> */}
-            {/* <Route exact path='/userLogout' component={UserLogout} /> */}
-            <PrivateRoute path='/protected' component={Protected} />
-            <PrivateRoute path='/protectedVault' component={ProtectedVault} />
-          </Switch>
-        </div>
+          { this.state.loggedOut ===  false  
+            ?  
+              <div>
+                <Header 
+                  currentUser={this.state.user.email} 
+                  fnActualizarStatePorUserLogout={this.actualizarStatePorUserLogout}
+                  displaynone={this.state.displaynone}
+                />
+                <Switch>
+                  <Route exact path='/public' component={Public} />
+                  {/* <Route exact path='/login' component={Login} /> */}
+                  <Route exact path='/allElementsFromAPI' component={AllElementsFromAPI} />
+                  <Route exact path='/newElement' component={NewElement} />
+                  <Route path='/talentos/:talentosId' component={ElementDetail} />
+                  <Route exact path='/newUserSignIn' component={NewUserSignIn} />
+                  {/* <Route exact path='/registeredUsers' component={RegisteredUsers} /> */}
+                  {/*<Route exact path='/userLogIn' component={UserLogIn} /> */}
+                  {/* <Route exact path='/currentUser' component={CurrentUser} /> */}
+                  {/* <Route exact path='/userLogout' component={UserLogout} /> */}
+                  {/*<PrivateRoute path='/protected' component={Protected} /> */}
+                  {/* <PrivateRoute path='/protectedVault' component={ProtectedVault} /> */}
+                </Switch>
+              </div>
+           : <UserLogIn 
+                fnActualizarStatePorUserLogin={this.actualizarStatePorUserLogin}
+              />
+          }
         {/*</Router>*/}
       </MuiThemeProvider>
     );

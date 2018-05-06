@@ -12,7 +12,9 @@ class Header extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {open: false};
+    this.state = {
+      open: false,
+    };
   }
 
   handleToggle = () => this.setState({open: !this.state.open});
@@ -23,9 +25,8 @@ class Header extends Component {
     request
       .get(`${API_URL}/auth/logout`)
       .then((response) => {
-        console.log([...response.body])
-        // this.props.history.push('/')
-        this.props.fnLogout() 
+        const loggedOut = response.body.loggedOut
+        this.props.fnActualizarStatePorUserLogout(loggedOut)
       })
       .catch(function(e){
         console.log(e)
@@ -37,22 +38,26 @@ class Header extends Component {
       <div className='header-container'>
         <div className='header-user-container'>{this.props.currentUser}</div>
         <div className='header-botones-container'>
-          <RaisedButton
-            className='header-button'
-            label="Menú"
-            onClick={this.handleToggle}
-          />
-          <Link to='/userLogIn' className='no-decoration-text'>
+          <div className={this.props.displaynone}>
+            <RaisedButton
+              className='header-button'
+              label="Menú"
+              onClick={this.handleToggle}
+            />
+          </div>
+          {/* <Link to='/userLogIn' className='no-decoration-text'>
             <RaisedButton
               className='header-button'
               label="Sign In / Log In"
             />
-          </Link>
-          <RaisedButton
-            className='header-button'
-            label="Log Out"
-            onClick={this.logout}
-          />
+          </Link> */}
+          <div className={this.props.displaynone}>
+            <RaisedButton
+              className='header-button'
+              label="Log Out"
+              onClick={this.logout}
+            />
+          </div>
           <Drawer
             docked={false}
             width={200}

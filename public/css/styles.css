@@ -22,6 +22,10 @@
   margin: 12px;
 }
 
+.display-none {
+  display: none;
+}
+
 .no-decoration-text {
   text-decoration: none;
 }

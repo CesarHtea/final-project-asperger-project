@@ -18,11 +18,12 @@ class UserLogin extends Component {
       .send(userData)
       .then(response => {
         // console.log(response)
-        alert(`Welcome ${response.body.email}`)
-        this.props.history.push('/') 
+        // alert(`Welcome ${response.body.email}`)
+        this.props.fnActualizarStatePorUserLogin()
+        // this.props.history.push('/') 
       })
       .catch(function(e) {
-        // console.log(e)
+        console.log(e)
         alert("Sorry, try again or sign in")
       })
   } 
