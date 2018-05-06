@@ -19,6 +19,9 @@ class CurrentUser extends Component {
     request
       .get(`${API_URL}/auth/current`)
       .then((data) => {
+        console.log('##########')
+        console.log([...data.body])
+        console.log('##########')
         this.setState({
           users: [...data.body]
         })

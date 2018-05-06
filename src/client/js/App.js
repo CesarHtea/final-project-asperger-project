@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import request from 'superagent';
 import { 
   BrowserRouter, 
   HashRouter as Router,
@@ -18,8 +19,10 @@ import NewElement from './NewElement';
 import NewUserSignIn from './NewUserSignIn';
 import RegisteredUsers from './RegisteredUsers';
 import UserLogIn from './UserLogIn';
-import CurrentUser from './CurrentUser';
-import UserLogout from './UserLogout'
+// import CurrentUser from './CurrentUser';
+// import UserLogout from './UserLogout'
+
+const API_URL = 'http://localhost:3000'
 
 //--------- AuthService to fake API requests
 const AuthService = {
@@ -102,12 +105,57 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 )
 
 class App extends Component {
+
+    constructor() {
+    super();
+
+    this.state = {
+      user: []
+    };
+  }
+
+  componentDidMount() {
+    request
+      .get(`${API_URL}/auth/current`)
+      .then((data) => {
+        this.setState({
+          user: data.body
+        })
+      })
+      .catch(function(e){
+        console.log(e)
+      })
+  };
+
+  actualizarStatePorUserLogin = () => {
+    request
+      .get(`${API_URL}/auth/current`)
+      .then((data) => {
+        this.setState({
+          user: data.body
+        })
+      })
+      .catch(function(e){
+        console.log(e)
+      })
+  };    
+
+  actualizarStatePorUserLogout = () => {
+    this.setState({
+      user: []
+    });
+  }
+
   render() {
     return (
       <MuiThemeProvider>
         {/*<Router>*/}
         <div>
-          <Header />
+          <Header 
+            currentUser={this.state.user.email} 
+            fnLogout={this.actualizarStatePorUserLogout}
+            fnLogin={this.actualizarStatePorUserLogin}
+          />
           <Switch>
             <Route exact path='/public' component={Public} />
             <Route exact path='/login' component={Login} />
@@ -115,10 +163,10 @@ class App extends Component {
             <Route exact path='/newElement' component={NewElement} />
             <Route path='/talentos/:talentosId' component={ElementDetail} />
             <Route exact path='/newUserSignIn' component={NewUserSignIn} />
-            <Route exact path='/registeredUsers' component={RegisteredUsers} />
+            {/* <Route exact path='/registeredUsers' component={RegisteredUsers} /> */}
             <Route exact path='/userLogIn' component={UserLogIn} />
-            <Route exact path='/currentUser' component={CurrentUser} />
-            <Route exact path='/userLogout' component={UserLogout} />
+            {/* <Route exact path='/currentUser' component={CurrentUser} /> */}
+            {/* <Route exact path='/userLogout' component={UserLogout} /> */}
             <PrivateRoute path='/protected' component={Protected} />
             <PrivateRoute path='/protectedVault' component={ProtectedVault} />
           </Switch>
