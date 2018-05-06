@@ -2,8 +2,15 @@
   font-family: 'Roboto', sans-serif;
 }
 
-.text {
-  background-color: blue;
-  color: white;
-  padding: 4px;
+.header {
+  display: flex;
+  justify-content: flex-end
+}
+
+.header-button {
+  margin: 12px;
+}
+
+.no-decoration-text {
+  text-decoration: none;
 }

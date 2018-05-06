@@ -31,7 +31,7 @@ class AllElementsFromAPI extends Component {
 
   deleteElement = elementId => {
     
-    console.log(elementId)
+    // console.log(elementId)
 
     request
       .delete(`${API_URL}/api/talentos/${elementId}`)
@@ -53,7 +53,7 @@ class AllElementsFromAPI extends Component {
   }
 
   render() {
-    console.log(this.state.talentos)
+    // console.log(this.state.talentos)
     return (
       <div>
         <h1>ALL ELEMENTS</h1>

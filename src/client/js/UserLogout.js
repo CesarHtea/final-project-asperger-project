@@ -31,7 +31,7 @@ class UserLogout extends Component {
     request
       .get(`${API_URL}/auth/logout`)
       .then((response) => {
-        console.log(response.body)
+        console.log([...response.body])
         this.props.history.push('/') 
       })
       .catch(function(e){
