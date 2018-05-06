@@ -106,23 +106,27 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 
 class App extends Component {
 
-    constructor() {
+  constructor() {
     super();
 
     this.state = {
-      user: []
+      user: [],
+      loggedOut: true,
+      display: 'none',
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     request
       .get(`${API_URL}/auth/current`)
       .then((data) => {
-        this.setState({
-          user: data.body,
-          displaynone: 'display-none',
-          loggedOut: true
-        })
+        if (typeof data.body.email === 'string') {
+          this.setState({
+            user: data.body,
+            loggedOut: false,
+            display: ''
+          })
+        }
       })
       .catch(function(e){
         console.log(e)
@@ -135,8 +139,8 @@ class App extends Component {
       .then((data) => {
         this.setState({
           user: data.body,
-          displaynone: '',
-          loggedOut: false
+          loggedOut: false,
+          display: ''
         })
         // this.props.history.push('/')
       })
@@ -148,25 +152,23 @@ class App extends Component {
   actualizarStatePorUserLogout = (loggedOut) => {
     this.setState({
       user: [],
-      displaynone: 'display-none',
+      display: 'none',
       loggedOut: loggedOut
     });
   }
 
-  
-
   render() {
-    // console.log(this.state)
+    console.log(this.state)
     return (
       <MuiThemeProvider>
         {/*<Router>*/}
-          { this.state.loggedOut ===  false  
+          { this.state.loggedOut ===  !true 
             ?  
               <div>
                 <Header 
                   currentUser={this.state.user.email} 
                   fnActualizarStatePorUserLogout={this.actualizarStatePorUserLogout}
-                  displaynone={this.state.displaynone}
+                  displaynone={this.state.display}
                 />
                 <Switch>
                   <Route exact path='/public' component={Public} />

@@ -38,7 +38,7 @@ class Header extends Component {
       <div className='header-container'>
         <div className='header-user-container'>{this.props.currentUser}</div>
         <div className='header-botones-container'>
-          <div className={this.props.displaynone}>
+          <div className={this.props.display}>
             <RaisedButton
               className='header-button'
               label="Menú"
@@ -51,7 +51,7 @@ class Header extends Component {
               label="Sign In / Log In"
             />
           </Link> */}
-          <div className={this.props.displaynone}>
+          <div className={this.props.display}>
             <RaisedButton
               className='header-button'
               label="Log Out"

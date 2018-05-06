@@ -6916,8 +6916,8 @@ var App = function (_Component5) {
       __WEBPACK_IMPORTED_MODULE_2_superagent___default.a.get(API_URL + '/auth/current').then(function (data) {
         _this5.setState({
           user: data.body,
-          displaynone: '',
-          loggedOut: false
+          loggedOut: false,
+          display: ''
         });
         // this.props.history.push('/')
       }).catch(function (e) {
@@ -6928,43 +6928,47 @@ var App = function (_Component5) {
     _this5.actualizarStatePorUserLogout = function (loggedOut) {
       _this5.setState({
         user: [],
-        displaynone: 'display-none',
+        display: 'none',
         loggedOut: loggedOut
       });
     };
 
     _this5.state = {
-      user: []
+      user: [],
+      loggedOut: true,
+      display: 'none'
     };
     return _this5;
   }
 
-  App.prototype.componentDidMount = function componentDidMount() {
+  App.prototype.componentWillMount = function componentWillMount() {
     var _this6 = this;
 
     __WEBPACK_IMPORTED_MODULE_2_superagent___default.a.get(API_URL + '/auth/current').then(function (data) {
-      _this6.setState({
-        user: data.body,
-        displaynone: 'display-none',
-        loggedOut: true
-      });
+      if (typeof data.body.email === 'string') {
+        _this6.setState({
+          user: data.body,
+          loggedOut: false,
+          display: ''
+        });
+      }
     }).catch(function (e) {
       console.log(e);
     });
   };
 
   App.prototype.render = function render() {
-    // console.log(this.state)
+    console.log(this.state);
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       __WEBPACK_IMPORTED_MODULE_4_material_ui_styles_MuiThemeProvider___default.a,
       null,
-      this.state.loggedOut === false ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      this.state.loggedOut === !true ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         null,
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__Header__["a" /* default */], {
           currentUser: this.state.user.email,
           fnActualizarStatePorUserLogout: this.actualizarStatePorUserLogout,
-          displaynone: this.state.displaynone
+          displaynone: this.state.display
         }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           __WEBPACK_IMPORTED_MODULE_3_react_router_dom__["f" /* Switch */],
@@ -24264,7 +24268,7 @@ var Header = function (_Component) {
         { className: 'header-botones-container' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
-          { className: this.props.displaynone },
+          { className: this.props.display },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5_material_ui_RaisedButton___default.a, {
             className: 'header-button',
             label: 'Men\xFA',
@@ -24273,7 +24277,7 @@ var Header = function (_Component) {
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
-          { className: this.props.displaynone },
+          { className: this.props.display },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5_material_ui_RaisedButton___default.a, {
             className: 'header-button',
             label: 'Log Out',
