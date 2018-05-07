@@ -2,6 +2,29 @@
   font-family: 'Roboto', sans-serif;
 }
 
+/* DISPLAY */
+
+.none {
+  display: none;
+}
+
+.grid {
+  display: flex;
+}
+
+/*****
+HEADER
+*****/ 
+
+.app-header-container {
+  position: fixed;
+  top: 0;
+  left:0;
+  width: 100%;
+  z-index: 0;
+  background-color: white;
+}
+
 .header-container {
   display: flex;
   flex-direction: column
@@ -22,10 +45,96 @@
   margin: 12px;
 }
 
-.none {
-  display: none;
-}
+/* MENU */
 
 .no-decoration-text {
   text-decoration: none;
 }
+
+/*************** 
+SIGN IN & LOG IN 
+***************/
+
+.app-login-signin-paper-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.login-material-ui-paper {
+  height: 500px;
+  width: 500px;
+  margin: 30px;
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+}
+
+.login-title {
+  text-align: center;
+  margin: 40px;
+}
+
+.login-form-container {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-button {
+  margin: 40px; 
+}
+
+/************** 
+CUESTIONARIO AQ 
+**************/
+
+.aq-material-ui-paper {
+  max-width: 100%;
+  padding: 30px;
+  margin: 30px;
+  margin-top: 150px;
+  display: flex;
+  justify-content: center;
+}
+
+.aq-container {
+  margin-top: 100px;
+}
+
+.aq-box-1 {
+  display: flex;
+  flex-direction: column;
+}
+
+.aq-text {
+  max-width: 800px;
+  margin-bottom: 0;
+}
+
+.aq-question {
+  font-size: 20px;
+  margin-top: 80px;
+}
+
+.aq-box-2 {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.aq-button {
+  margin: 12px;
+}
+
+.aq-enviar-text-material-ui-paper {
+  max-width: 100%;
+  padding: 30px;
+  margin: 30px;
+  display: flex;
+}
+

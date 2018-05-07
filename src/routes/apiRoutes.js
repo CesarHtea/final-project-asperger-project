@@ -13,7 +13,7 @@ const {
 const isUserAuthenticated = require('../modules/isUserAuthenticated')
 
 apiRouter
-  .get('/talentos', getTalentos)
+  .get('/talentos', isUserAuthenticated, getTalentos)
   .get('/talentos/:id', getUnGrupoDeTalentosPorId)
   .post('/talentos', isUserAuthenticated, createNewGrupoDeTalentos)
   .put('/talentos/:id', isUserAuthenticated, updateUnGrupoDeTalentos)

@@ -9,6 +9,7 @@ import {
   Link,
   Redirect
 } from 'react-router-dom';
+
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import './App.css';
 
@@ -19,6 +20,7 @@ import NewElement from './NewElement';
 import NewUserSignIn from './NewUserSignIn';
 import RegisteredUsers from './RegisteredUsers';
 import UserLogIn from './UserLogIn';
+import CuestionarioAQ from './CuestionarioAQ'
 // import CurrentUser from './CurrentUser';
 // import UserLogout from './UserLogout'
 
@@ -60,49 +62,49 @@ class ProtectedVault extends Component {
   }
 }
 
-class Login extends Component {
+// class Login extends Component {
 
-  state = {
-      redirectToReferrer: false
-    }
+//   state = {
+//       redirectToReferrer: false
+//     }
   
-  handleLogin = () => {
-    AuthService.authenticate(() => {
-      this.setState(() => ({
-        redirectToReferrer: true
-      }))
-    })
-  }
+//   handleLogin = () => {
+//     AuthService.authenticate(() => {
+//       this.setState(() => ({
+//         redirectToReferrer: true
+//       }))
+//     })
+//   }
 
-  render() {
+//   render() {
 
-    const { redirectToReferrer } = this.state
-    const { from } = this.props.location.state || { from: { pathname: '/' } }
+//     const { redirectToReferrer } = this.state
+//     const { from } = this.props.location.state || { from: { pathname: '/' } }
 
-    if ( redirectToReferrer === true) {
-      return <Redirect to={from} />
-    }
+//     if ( redirectToReferrer === true) {
+//       return <Redirect to={from} />
+//     }
 
-    return (
-      <div>
-        <p>You must log in to view this page. Pagina desde la que se intento accesar: <strong>{ from.pathname }</strong></p>
-        <button onClick={this.handleLogin}>Log in</button>
-      </div>
-    )
-  }
-}
+//     return (
+//       <div>
+//         <p>You must log in to view this page. Pagina desde la que se intento accesar: <strong>{ from.pathname }</strong></p>
+//         <button onClick={this.handleLogin}>Log in</button>
+//       </div>
+//     )
+//   }
+// }
 
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={(props) => (
-    AuthService.isAuthenticated === true
-      ? <Component {...props} />
-      : <Redirect to={{
-        pathname: '/login',
-        state: { from: props.location }
-      }} />
-  )} />
-)
+// const PrivateRoute = ({ component: Component, ...rest }) => (
+//   <Route {...rest} render={(props) => (
+//     AuthService.isAuthenticated === true
+//       ? <Component {...props} />
+//       : <Redirect to={{
+//         pathname: '/login',
+//         state: { from: props.location }
+//       }} />
+//   )} />
+// )
 
 class App extends Component {
 
@@ -158,36 +160,42 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state)
+    // console.log(this.state)
     return (
       <MuiThemeProvider>
         {/*<Router>*/}
           { this.state.loggedOut ===  !true 
             ?  
               <div>
-                <Header 
-                  currentUser={this.state.user.email} 
-                  fnActualizarStatePorUserLogout={this.actualizarStatePorUserLogout}
-                  displaynone={this.state.display}
-                />
+                <div className='app-header-container'>
+                  <Header
+                    currentUser={this.state.user.email} 
+                    fnActualizarStatePorUserLogout={this.actualizarStatePorUserLogout}
+                    displaynone={this.state.display}
+                  />
+                </div>
                 <Switch>
                   <Route exact path='/public' component={Public} />
                   {/* <Route exact path='/login' component={Login} /> */}
                   <Route exact path='/allElementsFromAPI' component={AllElementsFromAPI} />
                   <Route exact path='/newElement' component={NewElement} />
                   <Route path='/talentos/:talentosId' component={ElementDetail} />
-                  <Route exact path='/newUserSignIn' component={NewUserSignIn} />
+                  <Route path='/cuestionarioAQ' component={CuestionarioAQ} />
+                  {/* <Route exact path='/newUserSignIn' component={NewUserSignIn} /> */}
                   {/* <Route exact path='/registeredUsers' component={RegisteredUsers} /> */}
-                  {/*<Route exact path='/userLogIn' component={UserLogIn} /> */}
+                  {/* <Route exact path='/userLogIn' component={UserLogIn} /> */}
                   {/* <Route exact path='/currentUser' component={CurrentUser} /> */}
                   {/* <Route exact path='/userLogout' component={UserLogout} /> */}
-                  {/*<PrivateRoute path='/protected' component={Protected} /> */}
+                  {/* <PrivateRoute path='/protected' component={Protected} /> */}
                   {/* <PrivateRoute path='/protectedVault' component={ProtectedVault} /> */}
                 </Switch>
               </div>
-           : <UserLogIn 
-                fnActualizarStatePorUserLogin={this.actualizarStatePorUserLogin}
-              />
+            : <div className='app-login-signin-paper-container'>
+                <NewUserSignIn />
+                <UserLogIn 
+                  fnActualizarStatePorUserLogin={this.actualizarStatePorUserLogin}
+                />
+              </div>
           }
         {/*</Router>*/}
       </MuiThemeProvider>

@@ -69,6 +69,7 @@ class Header extends Component {
             <Link to='/protectedVault' className='no-decoration-text'><MenuItem onClick={this.handleClose}>ProtectedVault</MenuItem></Link>
             <Link to='/allElementsFromAPI' className='no-decoration-text'><MenuItem onClick={this.handleClose}>AllElementsFromAPI</MenuItem></Link>
             <Link to='/newElement' className='no-decoration-text'><MenuItem onClick={this.handleClose}>NewElement</MenuItem></Link>
+            <Link to='/cuestionarioAQ' className='no-decoration-text'><MenuItem onClick={this.handleClose}>Cuestionario AQ</MenuItem></Link>
             {/* <Link to='/registeredUsers' className='no-decoration-text'><MenuItem onClick={this.handleClose}>RegisteredUsers</MenuItem></Link> */}
             {/* <Link to='/newUserSignIn' className='no-decoration-text'><MenuItem onClick={this.handleClose}>NewUserSignIn</MenuItem></Link> */}
             {/* <Link to='/currentUser' className='no-decoration-text'><MenuItem onClick={this.handleClose}>CurrentUser</MenuItem></Link> */}
