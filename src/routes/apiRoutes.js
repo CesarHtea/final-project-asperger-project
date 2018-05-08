@@ -8,16 +8,23 @@ const {
   createNewGrupoDeTalentos,
   updateUnGrupoDeTalentos,
   deleteUnGrupoDeTalentos
-} = require('../modules/talentosTableCRUDfns.js')
+} = require('../modules/talentosTableCRUDfns')
+
+const {
+  getAllAnswersCuestionarioAQ
+} = require('../modules/cuestionarioAQTableCRUDfns')
 
 const isUserAuthenticated = require('../modules/isUserAuthenticated')
 
 apiRouter
-  .get('/talentos', isUserAuthenticated, getTalentos)
+  .get('/talentos', getTalentos)
   .get('/talentos/:id', getUnGrupoDeTalentosPorId)
   .post('/talentos', isUserAuthenticated, createNewGrupoDeTalentos)
   .put('/talentos/:id', isUserAuthenticated, updateUnGrupoDeTalentos)
   .delete('/talentos/:id', isUserAuthenticated, deleteUnGrupoDeTalentos)
+
+apiRouter
+  .get('/allAnswersCuestionarioAQ', getAllAnswersCuestionarioAQ)
 
 // apiRouter
 //   .get('/registeredUsers', getRegisteredUsers)

@@ -2,7 +2,7 @@
 exports.up = function(knex, Promise) {
   return knex
     .schema
-    .table('cuestionarioA', function(t) {
+    .table('cuestionarioAQ', function(t) {
       t
         .integer('userId')
         .unsigned()
@@ -14,7 +14,7 @@ exports.up = function(knex, Promise) {
 exports.down = function(knex, Promise) {
   return knex
     .schema 
-    .table('cuestionarioA', function(t) {
+    .table('cuestionarioAQ', function(t) {
       t
         .dropForeign('userId')
         .dropColumns('userId')

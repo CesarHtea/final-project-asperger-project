@@ -1,40 +1,69 @@
 import React, { Component } from 'react';
+import request from 'superagent'
+
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 
+const API_URL = 'http://localhost:3000'
+
 class CuestionarioAQ extends Component {
- 
-  
 
   constructor() {
       super()
 
       this.state = {
-      	pregunta1: { valor: 0, botonAColor: '', botonBColor: '', botonCColor: '', botonDColor: '' },
-        pregunta2: { valor: 0, botonAColor: '', botonBColor: '', botonCColor: '', botonDColor: '' },
+        userId: 0,
+      	pregunta1: { pregunta1opcionElegida: 0, valor: 0, botonASeleccionado: '', botonBSeleccionado: '', botonCSeleccionado: '', botonDSeleccionado: '' },
+        pregunta2: { pregunta1opcionElegida: 0, valor: 0, botonASeleccionado: '', botonBSeleccionado: '', botonCSeleccionado: '', botonDSeleccionado: '' },
         sumaTotal: 0
       }  
   }
 
-  pregunta1botonA = () => { this.setState({ pregunta1: { valor: 1, botonAColor: true, botonBColor: false, botonCColor: false, botonDColor: false } }) }
-  pregunta1botonB = () => { this.setState({ pregunta1: { valor: 2, botonAColor: false, botonBColor: true, botonCColor: false, botonDColor: false } }) }
-  pregunta1botonC = () => { this.setState({ pregunta1: { valor: 3, botonAColor: false, botonBColor: false, botonCColor: true, botonDColor: false } }) }
-  pregunta1botonD = () => { this.setState({ pregunta1: { valor: 4, botonAColor: false, botonBColor: false, botonCColor: false, botonDColor: true } }) }
+  componentDidMount() {
+    request
+      .get(`${API_URL}/auth/current`)
+      .then((data) => {
+        this.setState({
+          userId: data.body.id
+        })
+      })
+      .catch(function(e) {
+        console.log(e)
+      })
+  };
 
-  pregunta2botonA = () => { this.setState({ pregunta2: { valor: 10, botonAColor: true, botonBColor: false, botonCColor: false, botonDColor: false } }) }
-  pregunta2botonB = () => { this.setState({ pregunta2: { valor: 20, botonAColor: false, botonBColor: true, botonCColor: false, botonDColor: false } }) }
-  pregunta2botonC = () => { this.setState({ pregunta2: { valor: 30, botonAColor: false, botonBColor: false, botonCColor: true, botonDColor: false } }) }
-  pregunta2botonD = () => { this.setState({ pregunta2: { valor: 40, botonAColor: false, botonBColor: false, botonCColor: false, botonDColor: true } }) }
 
-  sumarYEnviarDatos = () => {
-  	let sumaTotal = this.state.pregunta1.valor + this.state.pregunta2.valor
-  	this.setState({
+
+  pregunta1botonA = () => { this.setState({ pregunta1: { pregunta1opcionElegida: 1, valor: 1, botonASeleccionado: true, botonBSeleccionado: false, botonCSeleccionado: false, botonDSeleccionado: false } }) }
+  pregunta1botonB = () => { this.setState({ pregunta1: { pregunta1opcionElegida: 2, valor: 2, botonASeleccionado: false, botonBSeleccionado: true, botonCSeleccionado: false, botonDSeleccionado: false } }) }
+  pregunta1botonC = () => { this.setState({ pregunta1: { pregunta1opcionElegida: 3, valor: 3, botonASeleccionado: false, botonBSeleccionado: false, botonCSeleccionado: true, botonDSeleccionado: false } }) }
+  pregunta1botonD = () => { this.setState({ pregunta1: { pregunta1opcionElegida: 4, valor: 4, botonASeleccionado: false, botonBSeleccionado: false, botonCSeleccionado: false, botonDSeleccionado: true } }) }
+
+  pregunta2botonA = () => { this.setState({ pregunta2: { pregunta2opcionElegida: 1, valor: 10, botonASeleccionado: true, botonBSeleccionado: false, botonCSeleccionado: false, botonDSeleccionado: false } }) }
+  pregunta2botonB = () => { this.setState({ pregunta2: { pregunta2opcionElegida: 2, valor: 20, botonASeleccionado: false, botonBSeleccionado: true, botonCSeleccionado: false, botonDSeleccionado: false } }) }
+  pregunta2botonC = () => { this.setState({ pregunta2: { pregunta2opcionElegida: 3, valor: 30, botonASeleccionado: false, botonBSeleccionado: false, botonCSeleccionado: true, botonDSeleccionado: false } }) }
+  pregunta2botonD = () => { this.setState({ pregunta2: { pregunta2opcionElegida: 4, valor: 40, botonASeleccionado: false, botonBSeleccionado: false, botonCSeleccionado: false, botonDSeleccionado: true } }) }
+
+  sumarYEnviarDatoAState = () => {
+  	
+    let objetoParaExportarATablaCuestionarioAQ
+    let sumaTotal
+  	
+  	sumaTotal = this.state.pregunta1.valor + this.state.pregunta2.valor
+    
+    objetoParaExportarATablaCuestionarioAQ = {
+      userId: this.state.userId,
+      pregunta1opcionElegida: this.state.pregunta1.pregunta1opcionElegida,
+      pregunta2opcionElegida: this.state.pregunta2.pregunta2opcionElegida,
       sumaTotal: sumaTotal
-    })
+    }
+
+    console.log(objetoParaExportarATablaCuestionarioAQ)    
+    
+    this.props.history.push('/')
   }
 
   render() {
-  	console.log(this.state)
     return (
 	  <Paper className='aq-material-ui-paper' zDepth={5} > 
         <div className='aq-container'>
@@ -45,20 +74,20 @@ class CuestionarioAQ extends Component {
 		      <div className='pregunta-1 aq-box-1'>  
 			    <p className='aq-question'>1. Prefiero hacer actividades con otras personas que hacerlas yo solo.</p>
 				<div className='aq-box-2'>
-		          <RaisedButton className='pregunta-1-boton-A aq-button' label='a. Coincido totalmente' primary={this.state.pregunta1.botonAColor === true ? true : false} onClick={this.pregunta1botonA} />
-		          <RaisedButton className='pregunta-1-boton-B aq-button' label='b. Coincido parcialmente' primary={this.state.pregunta1.botonBColor === true ? true : false} onClick={this.pregunta1botonB} />
-		          <RaisedButton className='pregunta-1-boton-C aq-button' label='c. Parcialmente en desacuerdo' primary={this.state.pregunta1.botonCColor === true ? true : false} onClick={this.pregunta1botonC} />
-		          <RaisedButton className='pregunta-1-boton-D aq-button' label='d. Totalmente en desacuerdo' primary={this.state.pregunta1.botonDColor === true ? true : false} onClick={this.pregunta1botonD} />
+		          <RaisedButton className='pregunta-1-boton-A aq-button' label='a. Coincido totalmente' primary={this.state.pregunta1.botonASeleccionado === true ? true : false} onClick={this.pregunta1botonA} />
+		          <RaisedButton className='pregunta-1-boton-B aq-button' label='b. Coincido parcialmente' primary={this.state.pregunta1.botonBSeleccionado === true ? true : false} onClick={this.pregunta1botonB} />
+		          <RaisedButton className='pregunta-1-boton-C aq-button' label='c. Parcialmente en desacuerdo' primary={this.state.pregunta1.botonCSeleccionado === true ? true : false} onClick={this.pregunta1botonC} />
+		          <RaisedButton className='pregunta-1-boton-D aq-button' label='d. Totalmente en desacuerdo' primary={this.state.pregunta1.botonDSeleccionado === true ? true : false} onClick={this.pregunta1botonD} />
 				</div>
 			  </div>
 
 		      <div className='pregunta-2 aq-box-1'>  
 			    <p className='aq-question'>2. Sigo el mismo procedimiento una y otra vez para realizar actividades.</p>
 				<div className='aq-box-2'>
-		          <RaisedButton className='pregunta-2-boton-A aq-button' label='a. Coincido totalmente' primary={this.state.pregunta2.botonAColor === true ? true : false} onClick={this.pregunta2botonA} />
-		          <RaisedButton className='pregunta-2-boton-B aq-button' label='b. Coincido parcialmente' primary={this.state.pregunta2.botonBColor === true ? true : false} onClick={this.pregunta2botonB} />
-		          <RaisedButton className='pregunta-2-boton-C aq-button' label='c. Parcialmente en desacuerdo' primary={this.state.pregunta2.botonCColor === true ? true : false} onClick={this.pregunta2botonC} />
-		          <RaisedButton className='pregunta-2-boton-D aq-button' label='d. Totalmente en desacuerdo' primary={this.state.pregunta2.botonDColor === true ? true : false} onClick={this.pregunta2botonD} />
+		          <RaisedButton className='pregunta-2-boton-A aq-button' label='a. Coincido totalmente' primary={this.state.pregunta2.botonASeleccionado === true ? true : false} onClick={this.pregunta2botonA} />
+		          <RaisedButton className='pregunta-2-boton-B aq-button' label='b. Coincido parcialmente' primary={this.state.pregunta2.botonBSeleccionado === true ? true : false} onClick={this.pregunta2botonB} />
+		          <RaisedButton className='pregunta-2-boton-C aq-button' label='c. Parcialmente en desacuerdo' primary={this.state.pregunta2.botonCSeleccionado === true ? true : false} onClick={this.pregunta2botonC} />
+		          <RaisedButton className='pregunta-2-boton-D aq-button' label='d. Totalmente en desacuerdo' primary={this.state.pregunta2.botonDSeleccionado === true ? true : false} onClick={this.pregunta2botonD} />
 				</div>
 			  </div>
 		      
@@ -71,7 +100,7 @@ class CuestionarioAQ extends Component {
 			        className='header-button'
 			        label="Enviar respuestas"
 			        secondary={true}
-			        onClick={this.sumarYEnviarDatos}
+			        onClick={this.sumarYEnviarDatoAState}
 			      />
                  </div>  
 		       </Paper>

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import request from 'superagent';
 import { 
-  BrowserRouter, 
-  HashRouter as Router,
+  BrowserRouter as Router,
+  // HashRouter as Router,
   Switch,
   Route,
   Link,
@@ -144,7 +144,6 @@ class App extends Component {
           loggedOut: false,
           display: ''
         })
-        // this.props.history.push('/')
       })
       .catch(function(e){
         console.log(e)
@@ -157,6 +156,7 @@ class App extends Component {
       display: 'none',
       loggedOut: loggedOut
     });
+    // this.props.history.push('/') 
   }
 
   render() {
@@ -241,8 +241,6 @@ class App extends Component {
 // }
 
 ReactDOM.render(
-  <BrowserRouter>
     <Router>
       <App/>
-    </Router>
-  </BrowserRouter>, document.getElementById('app-container'));
+    </Router>, document.getElementById('app-container'));

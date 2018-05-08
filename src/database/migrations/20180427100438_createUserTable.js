@@ -1,3 +1,5 @@
+// no tocar, esta es la tabla que se creo automaticamente para la Authentication
+
 exports.up = function(knex, Promise) {
   return knex.schema
   .createTable('user', (jobTable)=>{
